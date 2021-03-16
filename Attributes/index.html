@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://kitware.github.io/dive/Attributes/">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.0">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.77f3fd56.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a3f8f96a.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.7fa14f5b.min.css">
@@ -289,18 +289,19 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
       
-      <label class="md-nav__link" for="__nav_6">
+      <label class="md-nav__link" for="nav-6">
         User Interface Guide
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="User Interface Guide" data-md-level="1">
-        <label class="md-nav__title" for="__nav_6">
+        <label class="md-nav__title" for="nav-6">
           <span class="md-nav__icon md-icon"></span>
           User Interface Guide
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
           
             
   
@@ -446,22 +447,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#addingediting-attributes" class="md-nav__link">
-    Adding/Editing Attributes
+  <a href="#backgroundterms" class="md-nav__link">
+    Background/Terms
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adding-or-editing-attribute-demo" class="md-nav__link">
-    Adding or Editing Attribute Demo
+  <a href="#navigating-to-attributes" class="md-nav__link">
+    Navigating to Attributes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-attributes-on-tracksdetections" class="md-nav__link">
-    Setting Attributes on Tracks/Detections
+  <a href="#adding-attribute-definitions" class="md-nav__link">
+    Adding Attribute Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-dataset-attributes" class="md-nav__link">
+    Editing Dataset Attributes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-trackdetection-attribute-values" class="md-nav__link">
+    Setting Track/Detection Attribute Values
   </a>
   
 </li>
@@ -557,22 +572,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#addingediting-attributes" class="md-nav__link">
-    Adding/Editing Attributes
+  <a href="#backgroundterms" class="md-nav__link">
+    Background/Terms
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adding-or-editing-attribute-demo" class="md-nav__link">
-    Adding or Editing Attribute Demo
+  <a href="#navigating-to-attributes" class="md-nav__link">
+    Navigating to Attributes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-attributes-on-tracksdetections" class="md-nav__link">
-    Setting Attributes on Tracks/Detections
+  <a href="#adding-attribute-definitions" class="md-nav__link">
+    Adding Attribute Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editing-dataset-attributes" class="md-nav__link">
+    Editing Dataset Attributes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-trackdetection-attribute-values" class="md-nav__link">
+    Setting Track/Detection Attribute Values
   </a>
   
 </li>
@@ -602,24 +631,78 @@
                 
                 
                 <h1 id="attributes">Attributes</h1>
-<p>Attributes are properties that can be assigned to an entire track or a single detection within a track.  Attributes are created by users utilizing the Settings panel in the main file browser location.  New attributes can be added or existing ones can be modified.</p>
+<p>Attributes are properties that can be assigned to an entire track or a single detection within a track. Attributes are created within a dataset using the Track Details panel.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Attributes are global on the server currently and can be seen or modified by anyone.  There are future plans to move attributes to be specific to projects or users.</p>
+<p>Attributes were previously globally defined.  They are now defined on each individual dataset.</p>
 </div>
-<h2 id="addingediting-attributes">Adding/Editing Attributes</h2>
+<h2 id="backgroundterms">Background/Terms</h2>
+<p>It’s important to note that there are attribute definitations and then track/detection attributes.  Attributes definitions are all the possible attributes that can be assigned to tracks or detection.  Think of them as a template for the attributes that can be set on tracks/detections.  Track attributes are information for the entire track and detection attributes are information for the specific frame or instance of time.</p>
+<ul>
+<li><strong>Attribute Definition</strong> - base attribute which defines the name and <strong>type</strong> for either a track or detection attribute</li>
+<li><strong>Track Attribute</strong> - attribute with a <strong>value</strong> associated with the entire track</li>
+<li><strong>Detection Attribute</strong> - attribute with a <strong>value</strong> specified for a detection during a single frame</li>
+</ul>
+<p>Example:</p>
+<pre><code>- Attribute Definitions
+    - Track
+        - CompleteTrack: Boolean
+        - FishLength: number (cm)
+    - Detection
+        - Swimming: Boolean
+        - Eating: Boolean
+</code></pre>
+<p>Usage of the above Attribute Definitions for a track and its detections:</p>
+<pre><code>- Fish Track 1
+    - Track Attributes
+        - FishLength: 20
+    - Detection Attributes
+        - Frame 1
+            - Eating: true
+        - Frame 2
+            - Swimming: false
+            - Eating: false
+</code></pre>
+<p><strong>Note:</strong> All Attribute definitions do not need to be assigned to values.  CompleteTrack (Track Attribute) and Swimming for Frame 1 (Detection Attribute) weren't assigned in this example.</p>
+<h2 id="navigating-to-attributes">Navigating to Attributes</h2>
+<p>Controls for defining and editing attributes are found on the Track Details Panel. </p>
 <ol>
-<li>On the main browser of VIAME go to the Settings tab<ol>
-<li><img alt="Settings Bar" src="../images/Attributes/SettingsBar.png" /></li>
+<li>While your data is open you can select a track/detection to apply attributes.</li>
+<li>Open the Track Details page by clicking on the eye icon or by using the ‘A’ key as a shortcut.<ol>
+<li><img alt="Attributes Swap Icon" src="../images/Attributes/swapIcon.png" /></li>
+<li><img alt="Attributes Swap Large" src="../images/Attributes/goingToDetails.png" /></li>
 </ol>
 </li>
-<li>Click on the "+" button to indicate that you want to add a new attribute.<ol>
-<li><img alt="Settings Panel" src="../images/Attributes/SettingsPanel.png" /></li>
+<li>Here you will see the track/detection type, confidence pairs associated with it and then a list of track and detection attributes.<ol>
+<li><img alt="Track Details Full Panel" src="../images/Attributes/trackDetailsFull.png" /></li>
 </ol>
 </li>
-<li>Provide a descriptive name for the attribute and then determine if it is going to be a track or detection attribute.<ol>
-<li><em>Track Attributes</em> - apply data to the entire track</li>
-<li><em>Detection Attributes</em> - apply only to a specific detection on a track</li>
+<li>For attributes there are two sections<ol>
+<li><em>Track Attributes</em> - All track level attributes</li>
+<li><em>Detection Attributes</em> - attributes associated with the track on a per frame basis</li>
+</ol>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>During import of a VIAME CSV file, attributes that are structured using the <a href="https://viame.readthedocs.io/en/latest/section_links/detection_file_conversions.html">VIAME CSV specification</a> will automatically show up in the list.  The type of the attribute is guessed by examining values and may need to be manually corrected.</p>
+</div>
+<h2 id="adding-attribute-definitions">Adding Attribute Definitions</h2>
+<p>By default the view on the page shows all attributes associated with the dataset in editing mode.  If you click on the Eye Icon this will only display the attributes that are set on the selected track and the current frame for that track.
+<img alt="Eye Icon" src="../images/Attributes/eyeIcon.png" /></p>
+<p><img alt="'Edit Attributes'" src="../images/Attributes/trackDetailsFull.png" />    <img alt="'View Attributes'" src="../images/Attributes/trackDetailsView.png" /></p>
+<p>After clicking the eye icon, all attributes that are unset will be removed from view.  This is useful for reviewing or viewing attributes of a track when there is a large number of attribute definitions.</p>
+<ol>
+<li>
+<p>To add attributes click on the corresponding "+Attribute" icon for either a track or detection attribute</p>
+<ol>
+<li><img alt="Eye Icon" src="../images/Attributes/AttributeButton.png" /></li>
+</ol>
+</li>
+<li>
+<p>This will bring up a New Attribute dialog where you can enter a unique name for the attribute</p>
+<ol>
+<li><img alt="New Attribute Panel" src="../images/Attributes/newAttribute.png" /></li>
 </ol>
 </li>
 <li>Next choose a datatype: <ol>
@@ -632,42 +715,25 @@
 </li>
 </ol>
 </li>
-<li>After choosing a Track/Detection and a Datatype click Add to add the attribute.<ol>
-<li><img alt="Add Attribute" src="../images/Attributes/AddAttribute.png" /></li>
+<li>After choosing a Track/Detection and a Datatype click Save to add the new attribute</li>
 </ol>
-</li>
-<li>Existing attributes will show up on the left side of the screen in a list.<ol>
-<li><img alt="Attribute List" src="../images/Attributes/AttributeList.png" /></li>
-</ol>
-</li>
-</ol>
-<h2 id="adding-or-editing-attribute-demo">Adding or Editing Attribute Demo</h2>
-<p><img alt="Create Attributes" src="../videos/Attributes/CreateAttributes.gif" /></p>
-<h2 id="setting-attributes-on-tracksdetections">Setting Attributes on Tracks/Detections</h2>
+<h2 id="editing-dataset-attributes">Editing Dataset Attributes</h2>
 <ol>
-<li>Select a track or detection that attributes should be applied on</li>
-<li>Click in the upper right of the track/type panel to go to the Attributes Interface<ol>
-<li><img alt="Attributes Button" src="../images/Attributes/AttributesButton.png" /></li>
+<li>Click on the setting icon next to an existing attribute to edit it's definition details<ol>
+<li><img alt="Edit Attribute Panel" src="../images/Attributes/editAttribute.png" /></li>
 </ol>
 </li>
-<li>You are provided with some information about the currently selected track and it's attributes<ol>
-<li><img alt="Attributes Setting" src="../images/Attributes/AttributesSetting.png" /></li>
+<li><strong>Note:</strong>  Editing or deleting an attribute definition doesn’t change the existing track/detection attributes for the data<ol>
+<li>Deleting an attribute definition will cause it to disappear from the list.  A future update will cause the attribute to also be removed from all tracks/detections.</li>
+<li>Editing an attribute definition will change the way the controls behave, but will not change any existing set values.</li>
 </ol>
 </li>
-<li>Near the top is the Track ID, confidence pairs and then a list of Track Attributes that can be edited</li>
-<li>Further down is the current Frame number and the Detection attributes which are connected to that specific frame</li>
-<li>Attributes can be edited by clicking on the dropdowns and setting them<ol>
-<li>Boolean attributes allows you select <strong>blank</strong> or <strong>true</strong> or <strong>false</strong></li>
-<li><img alt="Boolean Attribute" src="../images/Attributes/BooleanAttribute.png" /></li>
-<li>Number attributes allow a numerical input</li>
-<li>Text attributes can either be custom text or selection from a predefined list of types</li>
 </ol>
-</li>
-<li><img alt="Attributes Set" src="../images/Attributes/AttributesSet.png" /></li>
-<li><strong>NOTE:</strong>  Don't forget to save the data after changing track attributes.<ol>
-<li><img alt="Save Icon" src="../images/NavBar/SaveIcon.png" /></li>
-</ol>
-</li>
+<h2 id="setting-trackdetection-attribute-values">Setting Track/Detection Attribute Values</h2>
+<ol>
+<li>Click on the attribute value when in viewing mode to edit and set the attribute</li>
+<li>Or directly edit the value field when in the attribute editing mode</li>
+<li>Setting an attribute to the null/empty value will remove the value from the track/detection</li>
 </ol>
 <h2 id="applying-attributes-demo">Applying Attributes Demo</h2>
 <p><img alt="Applying Attributes Demo" src="../videos/Attributes/ApplyingAttributes.gif" /></p>
@@ -727,7 +793,6 @@
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
-        
       </div>
       
     </div>
@@ -738,10 +803,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.217ffd95.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.5cf3e710.min.js"></script>
+      <script src="../assets/javascripts/bundle.926459b3.min.js"></script>
       
     
   </body>
